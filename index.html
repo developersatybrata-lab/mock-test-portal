@@ -77,13 +77,15 @@
 
     <!-- Screen 2: Test Section -->
     <div id="test-screen" class="hidden">
-        <div class="timer">Time Left: <span id="time">03:00</span></div>
+        <div class="timer">Time Left: <span id="time">05:00</span></div>
         <h3 id="student-display"></h3>
         
         <!-- Section Tabs -->
         <div class="section-tabs">
             <button type="button" class="tab-btn active" id="tab-sec1" onclick="switchSection('sec1')">General Awareness</button>
             <button type="button" class="tab-btn" id="tab-sec2" onclick="switchSection('sec2')">Reasoning</button>
+            <button type="button" class="tab-btn" id="tab-sec3" onclick="switchSection('sec3')">Mathematics</button>
+            <button type="button" class="tab-btn" id="tab-sec4" onclick="switchSection('sec4')">English</button>
         </div>
 
         <div class="test-layout">
@@ -123,6 +125,39 @@
                         </div>
                     </div>
 
+                    <!-- SECTION 3 -->
+                    <div id="sec3" class="section-block hidden">
+                        <div class="question" id="q4-box">
+                            <h4>4. 10% of 400 is </h4>
+                            <label><input type="radio" name="q4" value="A" data-text="40" onchange="updatePalette('q4')"> 40</label>
+                            <label><input type="radio" name="q4" value="B" data-text="50" onchange="updatePalette('q4')"> 50</label>
+                            <label><input type="radio" name="q4" value="C" data-text="80" onchange="updatePalette('q4')"> 80</label>
+                            <label><input type="radio" name="q4" value="D" data-text="140" onchange="updatePalette('q4')"> 140</label>
+                            <button type="button" class="clear-btn" onclick="clearSelection('q4')">Clear Selection</button>
+                        </div>
+
+                        <div class="question" id="q5-box">
+                            <h4>5. The cost of apples is increased by 20% and then decreased by 20%. What is the net percentage decreased?</h4>
+                            <label><input type="radio" name="q5" value="A" data-text="3%" onchange="updatePalette('q5')"> 3%</label>
+                            <label><input type="radio" name="q5" value="B" data-text="5%" onchange="updatePalette('q5')"> 5%</label>
+                            <label><input type="radio" name="q5" value="C" data-text="6%" onchange="updatePalette('q5')"> 6%</label>
+                            <label><input type="radio" name="q5" value="D" data-text="4%" onchange="updatePalette('q5')"> 4%</label>
+                            <button type="button" class="clear-btn" onclick="clearSelection('q5')">Clear Selection</button>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4 -->
+                    <div id="sec4" class="section-block hidden">
+                        <div class="question" id="q6-box">
+                            <h4>6. A person who is centrestage, attracting a lot of attention or interest?</h4>
+                            <label><input type="radio" name="q6" value="A" data-text="Cynosure" onchange="updatePalette('q6')"> Cynosure</label>
+                            <label><input type="radio" name="q6" value="B" data-text="Epicure" onchange="updatePalette('q6')"> Epicure</label>
+                            <label><input type="radio" name="q6" value="C" data-text="Connoisseur" onchange="updatePalette('q6')"> Connoisseur</label>
+                            <label><input type="radio" name="q6" value="D" data-text="Demagogue" onchange="updatePalette('q6')"> Demagogue</label>
+                            <button type="button" class="clear-btn" onclick="clearSelection('q6')">Clear Selection</button>
+                        </div>
+                    </div>
+
                     <button type="button" class="primary-btn" onclick="submitTest()">Submit Test</button>
                 </form>
             </div>
@@ -142,6 +177,17 @@
                 <div id="palette-sec2" class="palette-grid hidden">
                     <div class="p-btn unanswered" id="p-q3" onclick="jumpToQuestion('sec2', 'q3-box')">3</div>
                 </div>
+
+                <!-- Palette for Section 3 -->
+                <div id="palette-sec3" class="palette-grid hidden">
+                    <div class="p-btn unanswered" id="p-q4" onclick="jumpToQuestion('sec3', 'q4-box')">4</div>
+                    <div class="p-btn unanswered" id="p-q5" onclick="jumpToQuestion('sec3', 'q5-box')">5</div>
+                </div>
+
+                <!-- Palette for Section 4 -->
+                <div id="palette-sec4" class="palette-grid hidden">
+                    <div class="p-btn unanswered" id="p-q6" onclick="jumpToQuestion('sec4', 'q6-box')">6</div>
+                </div>
             </div>
         </div>
     </div>
@@ -152,7 +198,7 @@
         <hr><br>
         <p><strong>Candidate Name:</strong> <span id="res-name"></span></p>
         <p><strong>Email:</strong> <span id="res-email"></span></p>
-        <p><strong>Total Score:</strong> <span id="res-score"></span> / 3.00</p>
+        <p><strong>Total Score:</strong> <span id="res-score"></span> / 6.00</p>
         <p><strong>Correct Answers:</strong> <span id="res-correct"></span></p>
         <p><strong>Incorrect Answers:</strong> <span id="res-wrong"></span></p>
         <p><strong>Unattempted:</strong> <span id="res-unattempted"></span></p>
@@ -171,10 +217,13 @@
     const answers = { 
         q1: { ansLetter: "B", ansText: "Bhubaneswar", text: "1. What is the capital of Odisha?" }, 
         q2: { ansLetter: "A", ansText: "Mahanadi", text: "2. Which river flows through Cuttack?" },
-        q3: { ansLetter: "B", ansText: "10", text: "3. Complete the series: 2, 4, 6, 8, __?" }
+        q3: { ansLetter: "B", ansText: "10", text: "3. Complete the series: 2, 4, 6, 8, __?" },
+        q4: { ansLetter: "A", ansText: "40", text: "4. 10% of 400 is" }, 
+        q5: { ansLetter: "D", ansText: "4%", text: "5. The cost of apples is increased by 20% and then decreased by 20%. What is the net percentage decreased?" },
+        q6: { ansLetter: "A", ansText: "Cynosure", text: "6. A person who is centrestage, attracting a lot of attention or interest?" }
     };
     
-    let timerDuration = 180;
+    let timerDuration = 300; // 5 minutes
     let timerInterval;
     let isSubmitted = false;
 
